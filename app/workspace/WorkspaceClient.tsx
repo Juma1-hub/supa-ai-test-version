@@ -63,11 +63,11 @@ const navItems = [
   { id: "auto-trader", label: "Supa AI Auto Trader", icon: "⚡" },
   { id: "markets", label: "Market Monitor", icon: "⌁" },
   { id: "trades", label: "Active Trades", icon: "↗" },
-  { id: "history", label: "Trade History", icon: "◷" },
+  { id: "history", label: "History", icon: "◷" },
   { id: "risk", label: "Risk Controls", icon: "◇" },
-  { id: "bots", label: "Deriv Bot Studio", icon: "▦" },
-  { id: "offline", label: "Offline Trading", icon: "▣" },
-  { id: "settings", label: "Settings", icon: "⚙" }
+  { id: "bots", label: "D bot section", icon: "▦" },
+  { id: "offline", label: "background trader", icon: "▣" },
+  { id: "settings", label: "botspace", icon: "⚙" }
 ];
 
 function readSavedStrategies(): Strategy[] {
