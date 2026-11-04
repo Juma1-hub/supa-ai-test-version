@@ -22,7 +22,7 @@ const data = await response.json();
 
     if (!response.ok) {
       throw new Error(
-        data.error || "Could not load accounts."
+        data.error || "Could not load account data."
       );
     }
 
@@ -31,7 +31,7 @@ const data = await response.json();
   .catch((err) => {
     setError(
       err instanceof Error
-        ? err.message
+        ? error.message
         : "Could not load accounts."
     );
   })
@@ -67,7 +67,7 @@ S<span>+</span> </div>
     <div className="auth-eyebrow">ACCOUNT SELECTION</div>
 
     <h1>
-      Choose your <span>trading account.</span>
+      Choos <span>trading account.</span>
     </h1>
 
     <p className="auth-copy">
@@ -88,7 +88,7 @@ S<span>+</span> </div>
           Confirm that your OAuth app has the required
           permissions, then try signing in again.
         </p>
-        <a href="/" className="text-button">
+        <a href="/" className="text">
           Back to sign in
         </a>
       </div>
@@ -122,7 +122,7 @@ S<span>+</span> </div>
               <b>
                 {account.isVirtual
                   ? "Demo Account"
-                  : "Real Account"}
+                  : "live Account"}
               </b>
 
               <small>
