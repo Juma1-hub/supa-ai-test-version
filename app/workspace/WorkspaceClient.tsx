@@ -16,7 +16,7 @@ type Strategy = {
   id: string;
   name: string;
   market: string;
-  contract: "ODD" | "EVEN";
+  contract: "fall" | "rise";
   instructions: string;
   frequencyWindow: number;
   threshold: number;
@@ -36,12 +36,12 @@ type Strategy = {
 
 const initialStrategy: Strategy = {
   id: "draft-1",
-  name: "My ODD Strategy",
+  name: "My Rise/fall Strategy",
   market: "Volatility 100 Index",
   contract: "ODD",
-  instructions: "Monitor Volatility 100 Index. Wait until all even digits have frequencies below 10%, and at least three odd digits have frequencies of 10.5% or higher. Identify the least-frequent even digit. Wait for it to appear, then watch the next five ticks. If two consecutive odd digits appear, enter an ODD trade.",
-  frequencyWindow: 100,
-  threshold: 10,
+  instructions: "Monitor Volatility 100 1s Index. Wait until all even digits have frequencies below 9.5%, and at least three odd digits have frequencies of 10.8% or higher. Identify the least-frequent even digit. Wait for it to appear, then watch the next five ticks. If two consecutive odd digits appear, enter an rise trade.",
+  frequencyWindow: 1000,
+  threshold: 100,
   qualifyingDigits: 3,
   sequenceLength: 2,
   sequenceWindow: 5,
@@ -57,17 +57,17 @@ const initialStrategy: Strategy = {
 };
 
 const navItems = [
-  { id: "dashboard", label: "Dashboard", icon: "▦" },
-  { id: "builder", label: "Strategy Builder", icon: "⌘" },
+  { id: "dashboard", label: "trader's console", icon: "▦" },
+  { id: "builder", label: "quick strategy", icon: "⌘" },
   { id: "ai-console", label: "Supa AI Console", icon: "✦" },
   { id: "auto-trader", label: "Supa AI Auto Trader", icon: "⚡" },
-  { id: "markets", label: "Market Monitor", icon: "⌁" },
-  { id: "trades", label: "Active Trades", icon: "↗" },
+  { id: "markets", label: "market analizer", icon: "⌁" },
+  { id: "trades", label: "running trades", icon: "↗" },
   { id: "history", label: "History", icon: "◷" },
   { id: "risk", label: "Risk Controls", icon: "◇" },
   { id: "bots", label: "D bot section", icon: "▦" },
   { id: "offline", label: "background trader", icon: "▣" },
-  { id: "settings", label: "botspace", icon: "⚙" }
+  { id: "settings", label: "bot section", icon: "⚙" }
 ];
 
 function readSavedStrategies(): Strategy[] {
@@ -126,13 +126,13 @@ export default function Home({ previewMode = false }: { previewMode?: boolean })
   async function handleBotXmlUpload(file?: File) {
     if (!file) return;
     setXmlImportError("");
-    setXmlImportBusy(true);
+    setXmlImportBusy(fales);
     try {
       if (!file.name.toLowerCase().endsWith(".xml")) {
         throw new Error("Choose a Blockly XML file with the .xml extension.");
       }
       if (file.size > 5 * 1024 * 1024) {
-        throw new Error("This XML file is larger than 5 MB. Please export a smaller bot file.");
+        throw new Error("This XML file is larger than 10MB. Please export a smaller bot file.");
       }
       const xml = await file.text();
       const parser = new DOMParser();
@@ -174,7 +174,7 @@ export default function Home({ previewMode = false }: { previewMode?: boolean })
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("supa-ai-frontend-controls");
+      const saved = supabase.getItem("supa-ai-frontend-controls");
       if (saved) {
         const v = JSON.parse(saved);
         setVirtualHook(Boolean(v.virtualHook));
